@@ -1,0 +1,96 @@
+<script type="text/javascript">
+
+window.addEventListener('load', (event) => {
+
+    document.getElementsByTagName("html")[0].style.scrollBehavior = "smooth";
+
+    var app = document.getElementById("app");
+
+    var sidebar = document.createElement("div");
+    sidebar.style.position = 'fixed';
+    sidebar.style.display = 'grid';
+    sidebar.style.right = '1%';
+    sidebar.style.zIndex='1';
+    sidebar.style.bottom='1%';
+    sidebar.style.borderRadius = "10px";
+    sidebar.style.border = "2px solid #73AD21";
+    sidebar.style.background='white';
+    sidebar.style.padding='20px';
+
+
+    var close = document.createElement("span");
+    close.id = "close";
+    close.style.position = "absolute";
+    close.style.right = '7%';
+    close.style.top = '4%';
+    close.style.width = "12px";
+
+    var image = document.createElement("IMG");
+    image.src = 'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-close-512.png';
+    close.appendChild(image);
+    close.onclick = function(){
+        var x = document.getElementById("snackbar");
+        console.log(x);
+        x.className = x.className.replace("show", ""); 
+    };
+
+    sidebar.appendChild(close);
+
+    var image = document.createElement("IMG");
+    image.src = 'https://www.fiftybyfifty.org/wp-content/uploads/2019/08/MinorityOwnedBusinessLaurel-1024x911.png';
+    image.style.height = "100px";
+    image.style.width = "120px";
+    sidebar.appendChild(image);
+    sidebar.appendChild(document.createElement("BR"));
+
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = "Help us!";
+    btn.onclick = function () {
+        var donation_div = document.querySelectorAll('[data-block-purpose="donation@^1.0.0"]');
+        console.log(donation_div);
+        var donation_path = "#".concat(donation_div[0].id); 
+        console.log(donation_path); 
+        location.href = donation_path;
+    };
+    
+    sidebar.appendChild(btn);
+
+    var snackbar = document.createElement("div");
+    snackbar.id = "snackbar";
+
+    var styles = `
+
+    #snackbar {
+        visibility: hidden;
+    }
+    #snackbar.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s;
+        animation: fadein 0.5s;
+    }
+
+    @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;} 
+        to {bottom: 30px; opacity: 1;}
+    }
+
+    @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+    }
+    `;
+
+    var styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = styles;
+    snackbar.appendChild(styleSheet);
+
+    snackbar.className = "show";
+
+    snackbar.appendChild(sidebar);
+
+    var parent = app.parentNode;
+    parent.appendChild(snackbar);
+
+});</script>
+
